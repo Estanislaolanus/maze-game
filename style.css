@@ -12,5 +12,6 @@ main {
 }
 canvas {
     background: #47a2ec;
+    border: solid 1.5px #313;
     border-radius: .2rem;
 }
