@@ -9,8 +9,31 @@
 </head>
 <body>
     <main>
-        <canvas>
-        </canvas>
+        <div class="menuContainer">
+            <div id="dropdown" class="dropdown">
+                <div class="select">
+                    <span class="selected">Choose Difficulty</span>
+                    <div class="caret"></div>
+                </div>
+                <ul class="menu">
+                    <li data-difficulty="easy">Easy</li>
+                    <li data-difficulty="medium">Medium</li>
+                    <li data-difficulty="hard">Hard</li>
+                    <li data-difficulty="veryHard">Very Hard</li>
+                    <li data-difficulty="impossible">Impossible</li>
+                </ul>
+            </div>
+            <div class="startBtn">
+                <button id="startBtn">Start</button>
+            </div>
+        </div>
+        <div class="canvasContainer">
+            <canvas>
+            </canvas>
+            <div class="restartScreen hidden">
+                <button id="restartBtn">Restart</button>
+            </div>
+        </div>
     </main>
 </body>
 </html>
