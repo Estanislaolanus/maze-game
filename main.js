@@ -17,7 +17,7 @@ let difficultyText = "Easy"
 
 let startGame = false;
 const DIFFICULTY = {
-  easy: 4,
+  easy: 10,
   medium: 15,
   hard: 25,
   veryHard: 40,
@@ -191,7 +191,7 @@ function drawUser() {
 }
 
 function drawFinishCell() {
-  ctx.fillStyle = "#f11"
+  ctx.fillStyle = "#f33f3f90"
   ctx.fillRect(targetX, targetY, blockSize, blockSize)
 }
 
