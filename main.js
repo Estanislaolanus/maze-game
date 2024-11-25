@@ -1,4 +1,3 @@
-import Cell from "./Cell.js";
 import Maze from "./Maze.js";
 
 const canvas = document.querySelector("canvas");
@@ -35,8 +34,6 @@ let blockSize = CANVAS_SIZE / rowsAndCols;
 let maze = new Maze(rowsAndCols);
 
 // User variables
-
-
 let userX 
 let userY
 
@@ -44,23 +41,31 @@ let userY
 let targetX
 let targetY 
 
+// Start Game
 startBtn.addEventListener("click", () => {
-  const random = getStartingPositionCoordinates(Math.floor(Math.random() * 4))
-  userX = random.x * blockSize
-  userY = random.y * blockSize
-  targetX = random.x === 0 ? (rowsAndCols - 1) * blockSize : 0
-  targetY = random.y === 0 ? (rowsAndCols - 1) * blockSize : 0
+  resetCoordinates()
   startGame = true
   startDiv.classList.add("hidden")
   caret.classList.add("hidden")
-  select.innerText = difficultyText
-  update()
+  selected.innerText = difficultyText
+  draw()
 })
+
+// Restart Game
 restartBtn.addEventListener("click", () => {
   startDiv.classList.remove("hidden")
   caret.classList.remove("hidden")
   restartScreen.classList.add("hidden")
-  select.innerText = "Choose Difficulty"
+  selected.innerText = "Choose Difficulty"
+})
+
+// Dropdown
+document.addEventListener("click", (e) => {
+  const isClickInside = dropdown.contains(e.target)
+  if (!isClickInside && dropdown.classList.contains("dropdown")) {
+    menu.classList.remove("menu-open")
+    caret.classList.remove("caret-rotate")
+  }
 })
 select.addEventListener("click", () => {
   if(startGame) return
@@ -95,11 +100,6 @@ options.forEach((option) => {
     // Reset game variables
     blockSize = CANVAS_SIZE / rowsAndCols
     maze = new Maze(rowsAndCols)
-    const random = getStartingPositionCoordinates(Math.floor(Math.random() * 4))
-    userX = random.x * blockSize
-    userY = random.y * blockSize
-    targetX = random.x === 0 ? (rowsAndCols - 1) * blockSize : 0
-    targetY = random.y === 0 ? (rowsAndCols - 1) * blockSize : 0
     // Ui
     selected.innerText = option.innerText;
     select.classList.remove("select-clicked");
@@ -107,17 +107,17 @@ options.forEach((option) => {
     menu.classList.remove("menu-open");
     options.forEach((option) => {
       option.classList.remove("active");
-    });
+    })
     option.classList.add("active");
     // Game preview
     if(!startGame) {
       maze.generateGrid()
       draw()
     }
-  });
-});
+  })
+})
 
-// Random function
+
 function getStartingPositionCoordinates(randomNum) {
   const lastCoordinate = rowsAndCols - 1
   switch (randomNum) {
@@ -130,6 +130,13 @@ function getStartingPositionCoordinates(randomNum) {
     case 3:
       return { x: lastCoordinate, y: lastCoordinate }
   }
+}
+function resetCoordinates () {
+    const random = getStartingPositionCoordinates(Math.floor(Math.random() * 4))
+    userX = random.x * blockSize
+    userY = random.y * blockSize
+    targetX = random.x === 0 ? (rowsAndCols - 1) * blockSize : 0
+    targetY = random.y === 0 ? (rowsAndCols - 1) * blockSize : 0
 }
 // Game functions
 function clearCanvas() {
@@ -198,13 +205,11 @@ function userEvents() {
     switch (key) {
       case "ArrowRight":
         if (userX + blockSize < CANVAS_SIZE && !walls[1]) {
-          console.log(blockSize)
           userX += blockSize;
         }
         break;
       case "ArrowLeft":
         if (userX > 0 && !walls[3]) {
-          console.log(blockSize)
           userX -= blockSize
         }
         break;
@@ -218,7 +223,9 @@ function userEvents() {
   }
 }
 function gameOver() {
-  if(userX === targetX && userY === targetY) {
+  const isXMatching = Math.round(userX) === Math.round(targetX)
+  const isYMatching = Math.round(userY) === Math.round(targetY)
+  if( isXMatching && isYMatching) {
     startGame = false
     restartScreen.classList.remove("hidden")
   }
@@ -233,13 +240,10 @@ function draw() {
     window.requestAnimationFrame(draw);
   }
 }
-function update() {
-  maze.generateGrid();
-  userEvents();
-  draw();
-}
+
 //Preview game
 if(!startGame) {
   maze.generateGrid()
   draw()
-}
+} 
+userEvents();

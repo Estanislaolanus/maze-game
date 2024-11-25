@@ -14,12 +14,14 @@
     gap: .5rem;
 }
 .startBtn button {
-    padding: 1.1rem 1.5rem;
+    padding: 1.3rem 2rem;
     outline: none;
     border: none;
     cursor: pointer;
     border-radius: .5rem;
-    background: #FFDDAE;
+    background: #3ff378;
+    font-weight: bold;
+    font-size: 1rem;
 }
 main {
     width: 100vw;
@@ -44,8 +46,9 @@ canvas {
     background: #2a2f3b;
     color: #fff;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    gap: .2rem;
     border: 2px solid #2a2f3b;
     border-radius: .5rem;
     padding: 1rem;
@@ -53,26 +56,17 @@ canvas {
     transition: background .3s;
     width: 180px;
 }
-.select-clicked {
-    border: 2px #26489a solid;
-    box-shadow: 0 0 0.rem #26489a;
-}
 
 .select:hover {
     background: #323741;
 }
 .caret {
-    width: 0;
-    height: 0;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-top: 6px solid #fff;
-    transition: .3s;
-    margin-left: .9rem;
+    transition: transform .3s;
 }
 
 .caret-rotate {
     transform: rotate(180deg);
+    
 }
 
 .menu {
@@ -80,11 +74,11 @@ canvas {
     padding: .2rem .5rem;
     background: #363a43;
     border: 1px solid #363a43;
-    border-radius: .5rem;
+    border-radius: 0 0 .5rem .5rem;
     position: absolute;
     top: 3.5rem;
     left: 50%;
-    width: 190px;
+    width: 180px;
     transform: translateX(-50%);
     opacity: 0;
     display: none;
